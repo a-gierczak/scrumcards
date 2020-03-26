@@ -18,7 +18,7 @@ const getConnectionString = () => {
 };
 
 const connect = (dispatch) => {
-  ws = new WebSocket(`${socketProtocol}//${serverHostname}:${serverPort}`);
+  ws = new WebSocket(getConnectionString());
   ws.onclose = () => dispatch({ type: CONNECTION_LOST });
   ws.onmessage = (event) => {
     const message = JSON.parse(event.data);

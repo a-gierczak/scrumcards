@@ -7,7 +7,7 @@ const app = express();
 const expressWs = require('express-ws')(app);
 const wsServer = expressWs.getWss();
 
-const appBuildPath = path.resolve(__dirname, '../../app/build');
+const appBuildPath = path.resolve(__dirname, '../build');
 
 app.use('/static', express.static(path.join(appBuildPath, 'static')));
 
