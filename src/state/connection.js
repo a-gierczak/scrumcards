@@ -2,11 +2,20 @@ import { CONNECTION_LOST, SERVER_STATE_CHANGED, NAME_SUBMIT, VOTE_SUBMIT, VOTE_C
 import { useEffect } from 'react';
 
 let ws;
-const socketProtocol = (window.location.protocol === 'https:' ? 'wss:' : 'ws:')
+const socketProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const serverHostname = process.env.REACT_APP_HOSTNAME || 'localhost';
-const serverPort = process.env.REACT_APP_PORT || 3300;
+const serverPort = process.env.REACT_APP_PORT || undefined;
 
 const isEstablished = () => ws && ws.readyState === WebSocket.OPEN;
+
+const getConnectionString = () => {
+  const base = `${socketProtocol}//${serverHostname}`;
+  if (serverPort) {
+    return `${base}:${serverPort}`;
+  }
+
+  return base;
+};
 
 const connect = (dispatch) => {
   ws = new WebSocket(`${socketProtocol}//${serverHostname}:${serverPort}`);

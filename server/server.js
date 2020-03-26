@@ -123,7 +123,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(appBuildPath, 'index.html'));
 })
 
-const PORT = 3300;
+const PORT = process.env.PORT || 3300;
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`)
