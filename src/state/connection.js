@@ -6,6 +6,12 @@ const socketProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const serverHostname = process.env.REACT_APP_HOSTNAME || 'localhost';
 const serverPort = process.env.REACT_APP_PORT || undefined;
 
+setInterval(() => {
+  if (ws) {
+    ws.send('ping');
+  }
+}, 1000);
+
 const isEstablished = () => ws && ws.readyState === WebSocket.OPEN;
 
 const getConnectionString = () => {
