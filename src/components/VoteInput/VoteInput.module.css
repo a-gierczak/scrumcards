@@ -16,7 +16,7 @@
 }
 
 .input {
-  width: 140px;
+  width: 200px;
   font-size: 50px;
   padding: 10px 20px;
   color: #fff;
@@ -24,12 +24,16 @@
 
 .button {
   cursor: pointer;
-  vertical-align: middle;
   font-size: 30px;
   margin-left: 20px;
   border-radius: 3px;
   width: 100px;
   height: 80px;
+  color: #fff;
+}
+
+.button > svg {
+  vertical-align: middle;
 }
 
 .label {
@@ -37,4 +41,19 @@
   font-size: 30px;
   margin-bottom: 20px;
   color: #fff;
+}
+
+.iconButton {
+  appearance: none;
+  vertical-align: middle;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 30px;
+  margin-left: 20px;
+  border-radius: 3px;
+  color: #505050;
+  margin-right: 20px;
+  margin-top: 15px;
+  outline: none;
 }

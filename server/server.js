@@ -112,6 +112,7 @@ app.ws('/', (ws, req) => {
     const user = socketToUserMap.get(ws);
     const index = state.people.indexOf(user);
     if (index !== -1) {
+      removeVote(user.id);
       state.people.splice(index, 1);
       broadcastNewState();
     }

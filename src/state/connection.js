@@ -7,10 +7,10 @@ const serverHostname = process.env.REACT_APP_HOSTNAME || 'localhost';
 const serverPort = process.env.REACT_APP_PORT || undefined;
 
 setInterval(() => {
-  if (ws) {
+  if (ws?.readyState === WebSocket.OPEN) {
     ws.send('{}');
   }
-}, 1000);
+}, 10000);
 
 const isEstablished = () => ws && ws.readyState === WebSocket.OPEN;
 

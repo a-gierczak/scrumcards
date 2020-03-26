@@ -20,6 +20,8 @@ export const Lobby = ({ dispatch }) => {
             autoFocus
             name="username"
             required
+            autoComplete="off"
+            maxLength={40}
           />
           <button type="submit" className={styles.button}>
             Gotów

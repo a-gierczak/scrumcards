@@ -40,6 +40,8 @@
   border: 20px solid #cecece;
   border-radius: 15px;
   backface-visibility: hidden;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .cardBack {
