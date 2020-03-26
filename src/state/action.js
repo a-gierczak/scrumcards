@@ -1,0 +1,7 @@
+export const CONNECTION_LOST = 'CONNECTION_LOST';
+export const SERVER_STATE_CHANGED = 'SERVER_STATE_CHANGED';
+export const NAME_SUBMIT = 'NAME_SUBMIT';
+export const VOTE_CHANGE = 'VOTE_CHANGE';
+export const VOTE_SUBMIT = 'VOTE_SUBMIT';
+export const VOTE_CANCEL = 'VOTE_CANCEL';
+

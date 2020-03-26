@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  left: 2vw;
+  top: 5vh;
+  color: #fff;
+}
+
+.list {
+  margin: 0;
+  list-style: none;
+  text-align: left;
+  border: 1px solid #cecece;
+  display: inline-block;
+  padding: 20px 25px;
+  border-radius: 3px;
+}
+
+.badge {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.name {
+  vertical-align: middle;
+  display: inline-block;
+}

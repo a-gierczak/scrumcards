@@ -1,0 +1,43 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.input, .button {
+  appearance: none;
+  vertical-align: middle;
+  border-radius: 3px;
+  background: none;
+  border: 1px solid #cecece;
+}
+
+.input {
+  width: 300px;
+  font-size: 50px;
+  padding: 10px 20px;
+  color: #fff;
+  display: block;
+}
+
+.button {
+  cursor: pointer;
+  vertical-align: middle;
+  font-size: 30px;
+  border-radius: 3px;
+  height: 80px;
+  color: #fff;
+  padding: 10px 40px;
+  margin-top: 40px;
+}
+
+.label {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #fff;
+}

@@ -1,0 +1,40 @@
+.container {
+  position: absolute;
+  width: 100%;
+  bottom: 8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.input, .button {
+  appearance: none;
+  vertical-align: middle;
+  border-radius: 3px;
+  background: none;
+  border: 1px solid #cecece;
+}
+
+.input {
+  width: 140px;
+  font-size: 50px;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.button {
+  cursor: pointer;
+  vertical-align: middle;
+  font-size: 30px;
+  margin-left: 20px;
+  border-radius: 3px;
+  width: 100px;
+  height: 80px;
+}
+
+.label {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #fff;
+}
