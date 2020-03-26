@@ -8,7 +8,7 @@ const serverPort = process.env.REACT_APP_PORT || undefined;
 
 setInterval(() => {
   if (ws) {
-    ws.send('ping');
+    ws.send('{}');
   }
 }, 1000);
 
