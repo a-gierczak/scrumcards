@@ -31,7 +31,10 @@ const playAlertIfWaitingForUser = (state) => {
     state.votes.length > 0 &&
     state.votes.length === state.people.length - 1
   ) {
-    alertTimeout = setTimeout(() => alert.play(), 4000);
+    alertTimeout = setTimeout(() => {
+      debugger;
+      alert.play();
+    }, 4000);
   }
 };
 
