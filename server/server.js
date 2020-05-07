@@ -1,7 +1,8 @@
 const express = require('express');
 const uuid = require('uuid').v4;
-const randomcolor = require('randomcolor');
+const randomcolor = require('rcolor');
 const path = require('path');
+const action = require('../src/state/action');
 
 const app = express();
 const expressWs = require('express-ws')(app);
@@ -22,14 +23,14 @@ const broadcastNewState = () =>
   wsServer.clients.forEach((ws) => {
     const user = socketToUserMap.get(ws);
     const message = {
-      type: 'STATE_CHANGED',
-      payload: { ...state, user }
-    }
+      type: action.SERVER_STATE_CHANGED,
+      payload: { ...state, user },
+    };
     ws.send(JSON.stringify(message));
   });
 
 const removeVote = (id) => {
-  const newVotes = state.votes.filter(vote => vote.id !== id);
+  const newVotes = state.votes.filter((vote) => vote.id !== id);
 
   if (newVotes.length !== state.votes.length) {
     if (voteFinishTimeout) {
@@ -50,7 +51,7 @@ app.ws('/', (ws, req) => {
   ws.on('message', (json) => {
     const message = JSON.parse(json);
     switch (message.type) {
-      case 'NAME_SUBMIT': {
+      case action.NAME_SUBMIT: {
         const user = {
           id: uuid(),
           name: message.payload,
@@ -62,7 +63,7 @@ app.ws('/', (ws, req) => {
         broadcastNewState();
         break;
       }
-      case 'VOTE_CANCEL': {
+      case action.VOTE_CANCEL: {
         const user = socketToUserMap.get(ws);
         if (!user) {
           return;
@@ -75,7 +76,7 @@ app.ws('/', (ws, req) => {
 
         break;
       }
-      case 'VOTE_SUBMIT': {
+      case action.VOTE_SUBMIT: {
         const user = socketToUserMap.get(ws);
         if (!user) {
           return;
@@ -105,6 +106,8 @@ app.ws('/', (ws, req) => {
         broadcastNewState();
         break;
       }
+      default:
+        break;
     }
   });
 
@@ -117,15 +120,14 @@ app.ws('/', (ws, req) => {
       broadcastNewState();
     }
   });
-
 });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(appBuildPath, 'index.html'));
-})
+});
 
 const PORT = process.env.PORT || 3300;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}!`)
+  console.log(`Server listening on port ${PORT}!`);
 });

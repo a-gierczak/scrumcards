@@ -2,17 +2,16 @@ import { CONNECTION_LOST, SERVER_STATE_CHANGED, NAME_SUBMIT, VOTE_SUBMIT, VOTE_C
 import { useEffect } from 'react';
 
 let ws;
+let wsPingInterval;
+
 const socketProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const serverHostname = process.env.REACT_APP_HOSTNAME || 'localhost';
 const serverPort = process.env.REACT_APP_PORT || undefined;
 
-setInterval(() => {
-  if (ws?.readyState === WebSocket.OPEN) {
-    ws.send('{}');
-  }
-}, 10000);
+const PING_MESSAGE = JSON.stringify({ type: 'ping' });
+const PING_MESSAGE_INTERVAL_MS = 10000;
 
-const isEstablished = () => ws && ws.readyState === WebSocket.OPEN;
+const isEstablished = () => ws?.readyState === WebSocket.OPEN;
 
 const getConnectionString = () => {
   const base = `${socketProtocol}//${serverHostname}`;
@@ -23,14 +22,37 @@ const getConnectionString = () => {
   return base;
 };
 
+const handleConnectionOpened = () => {
+  if (wsPingInterval) {
+    clearInterval(wsPingInterval);
+    wsPingInterval = undefined;
+  }
+
+  wsPingInterval = setInterval(() => {
+    if (isEstablished()) {
+      ws.send(PING_MESSAGE);
+    }
+  }, PING_MESSAGE_INTERVAL_MS);
+};
+
+const handleConnectionClosed = (dispatch) => () => {
+  if (wsPingInterval) {
+    clearInterval(wsPingInterval);
+    wsPingInterval = undefined;
+  }
+
+  dispatch({ type: CONNECTION_LOST });
+};
+
 const connect = (dispatch) => {
   ws = new WebSocket(getConnectionString());
-  ws.onclose = () => dispatch({ type: CONNECTION_LOST });
+  ws.onopen = handleConnectionOpened;
+  ws.onclose = handleConnectionClosed(dispatch);
   ws.onmessage = (event) => {
     const message = JSON.parse(event.data);
-    
-    if (message.type === 'STATE_CHANGED') {
-      dispatch({ type: SERVER_STATE_CHANGED, payload: message.payload });
+  
+    if (message.type === SERVER_STATE_CHANGED) {
+      dispatch(message);
       return;
     }
 
